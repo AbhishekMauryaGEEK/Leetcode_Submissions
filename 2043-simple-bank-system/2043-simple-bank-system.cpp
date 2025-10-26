@@ -30,6 +30,9 @@ public:
             account > balance.size()) {
             return false;
         }
+        if (balance[account - 1] < money) {
+            return false;
+        }
         balance[account - 1] -= money;
         return true;
     }
