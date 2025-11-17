@@ -1,17 +1,18 @@
 class Solution {
 public:
     int firstUniqChar(string s) {
-        for (int i = 0; i < s.size(); i++) {
-        int flag = 0;
-            for (int j = 0; j < s.size(); j++) {
-                if (i != j && s[i] == s[j]) {
-                    flag = 1;
-                    break;
-                }
-            }
-            if (flag == 0)
-                return i;
+        vector<int> freq(26, 0);   
+
+        for(char c : s){
+            freq[c - 'a']++;
         }
+
+        for(int i = 0; i < s.size(); i++){
+            if(freq[s[i] - 'a'] == 1){
+                return i;
+            }
+        }
+        
         return -1;
     }
 };
