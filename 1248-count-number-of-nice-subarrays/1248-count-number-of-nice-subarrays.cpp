@@ -1,25 +1,21 @@
 class Solution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
-        int n = nums.size();
-        int ans = 0;
-        int prefix = 0;
-        unordered_map<int,int> freq;
+        return atMost(nums, k) - atMost(nums, k - 1);
+    }
+    
+    int atMost(vector<int>& nums, int k) {
+        int left = 0, ans = 0, oddCount = 0;
         
-        // Base case: prefix sum 0 has occurred once
-        freq[0] = 1;
-        
-        for (int i = 0; i < n; i++) {
-            // Count odds: add 1 if odd, else 0
-            prefix += (nums[i] % 2);
+        for (int right = 0; right < nums.size(); right++) {
+            if (nums[right] % 2 != 0) oddCount++;
             
-            // If prefix - k has appeared before, those subarrays are valid
-            if (freq.find(prefix - k) != freq.end()) {
-                ans += freq[prefix - k];
+            while (oddCount > k) {
+                if (nums[left] % 2 != 0) oddCount--;
+                left++;
             }
             
-            // Record current prefix
-            freq[prefix]++;
+            ans += (right - left + 1);
         }
         
         return ans;
