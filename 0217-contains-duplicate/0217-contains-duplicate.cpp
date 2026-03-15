@@ -9,6 +9,7 @@ public:
         for( auto &k:freq){
             if(k.second>1){
                 res=true;
+                break;
             }
         }
         return res;
